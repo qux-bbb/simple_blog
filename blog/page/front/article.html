@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="{{static_url('css/bootstrap.min.css')}}">
+	<link rel="stylesheet" href="{{static_url('css/top.css')}}"> 
+
+	<title>{{ article_name }}</title>
+
+</head>
+<body>
+	<div class="container top">
+		<div class="row">
+			<div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 col-xs-push-2 col-sm-push-2 col-md-push-2 col-lg-push-2">
+				<ul class="nav nav-tabs">
+					<li role="presentation"><a href="./">简介</a></li>
+					<li role="presentation"><a href="./articlelist">文章列表</a></li>
+					<li role="presentation" class="active"><a>{{ article_name }}</a></li>
+				</ul>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 col-xs-push-2 col-sm-push-2 col-md-push-2 col-lg-push-2">
+				{% raw article_content %}
+			</div>
+		</div>
+	</div>
+
+	<script src="{{static_url('js/jquery-3.2.1.min.js')}}"></script>
+	<script src="{{static_url('js/bootstrap.min.js')}}"></script>
+</body>
+</html>

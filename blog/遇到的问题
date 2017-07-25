@@ -1,0 +1,8 @@
+1. 运行py文件必须在py所在目录下...   龙神用root路径完美解决
+2. 后台页面跳转利用参数不同用不同页面渲染，render
+3. 使用cookie区分是否登陆
+
+
+python安装包：
+tornado
+markdown

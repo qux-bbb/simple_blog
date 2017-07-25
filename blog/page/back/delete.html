@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="{{static_url('css/bootstrap.min.css')}}">
+	<link rel="stylesheet" href="{{static_url('css/top.css')}}"> 
+	
+	<title>Delete</title>
+</head>
+<body>
+
+	<div class="container top">
+		<div class="row">
+			<div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 col-xs-push-2 col-sm-push-2 col-md-push-2 col-lg-push-2">
+				<ul class="nav nav-tabs">
+					<li role="presentation"><a class="btn-warning" href="{{back_dir}}/logout">退出</a></li>
+
+					<li role="presentation"><a href="{{back_dir}}?modify=introduce">简介修改</a></li>
+					<li role="presentation"><a href="{{back_dir}}?modify=articlelist">文章管理</a></li>
+					<li role="presentation" class="active"><a>删除文章</a></li>
+				</ul>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 col-xs-push-2 col-sm-push-2 col-md-push-2 col-lg-push-2">
+				<p class="text-success">Note:点击标题即可删除文章</p>
+			</div>
+		</div>
+		<div class="row top">
+			<div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 col-xs-push-2 col-sm-push-2 col-md-push-2 col-lg-push-2">
+				<!-- 虽然看起来跟articlelist一样，但是后台传的数据是不一样的，有细微差别 -->
+				{% raw articlelist %}
+			</div>
+		</div>
+	</div>
+
+	<script src="{{static_url('js/jquery-3.2.1.min.js')}}"></script>
+	<script src="{{static_url('js/bootstrap.min.js')}}"></script>
+</body>
+</html>
