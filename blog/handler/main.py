@@ -9,7 +9,7 @@ import tornado.web
 import os
 root_dir = os.path.dirname(__file__) + "/"
 
-# 引入用户名密码
+# 引入配置文件信息
 import sys
 sys.path.append(root_dir + "../conf")
 from conf import *
@@ -137,6 +137,7 @@ class BackHandler(BaseHandler):
 class UploadHandler(BaseHandler):
     @tornado.web.authenticated       
     def get(self):
+        info_message = "<p style='color:green;'>可多选上传文件</p>"
         self.render("../page/back/upload.html", back_dir = back_dir, info_message = "")
 
     @tornado.web.authenticated       
