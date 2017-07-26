@@ -1,5 +1,17 @@
-/*所有的container margin-top*/
-
 .top{
 	margin-top: 50px;
+}
+
+.list-top{
+	margin-top: 10px;
+}
+
+
+.sub-a p a{
+	text-decoration: none;
+	outline: none;
+}
+
+.sub-a p a:hover{
+	font-size: 16px;
 }

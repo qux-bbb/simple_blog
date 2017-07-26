@@ -73,7 +73,7 @@ class LoginHandler(BaseHandler):
             password2 = self.get_argument('password', 'Default_Pass')
 
             if username2 == username and password2 == password:
-                self.set_secure_cookie(auth_cookie, username2)
+                self.set_secure_cookie(auth_cookie, username2, expires_days=None)
                 self.redirect(back_dir)
             else:
                 self.write("<p style='color:red;'>用户名或密码错误！</p>")
@@ -200,7 +200,7 @@ if __name__ == "__main__":
     settings = {
     "cookie_secret": cookie_secret,
     "xsrf_cookies": True,
-    "login_url": "/",  # 别定位到登陆，定位到登陆就算是漏洞了
+    "login_url": "/",  # 别定位到登陆，定位到登陆就算是漏洞了,因为我们要隐藏登陆入口
     "static_path": ROOT_DIR + "/../static",
     "debug":debug_open
     }
@@ -213,7 +213,8 @@ if __name__ == "__main__":
                   # 这三个路由都属于后台部分，应该隐藏在back_dir后
                   (back_dir + "/logout", LogoutHandler),  
                   (back_dir + "/upload", UploadHandler),
-                  (back_dir + "/delete", DeleteHandler)
+                  (back_dir + "/delete", DeleteHandler),
+                  ("/favicon.ico", tornado.web.StaticFileHandler,dict(url='favicon.ico',permanent=False))
 
                  ], **settings)
     http_server = tornado.httpserver.HTTPServer(app)
