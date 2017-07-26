@@ -17,13 +17,16 @@
 
 
 ## 启动  
-只有一个main.py文件， 用python运行即可，可指定端口  
+只有一个main.py文件， 用python运行即可  
+`python  simple_blog/blog/handler/main.py`  
+也可后台运行：
+`nohup python  simple_blog/blog/handler/main.py &`   
+运行后在相应端口访问即可，如在本地8000端口，访问 `http://127.0.0.1:8000`即可  
+
 一些配置在conf/conf.py中有详细解释  
 
 ## 注意
-建议写md时，在最后自己附上日期，我没写日期的功能  
-
-
+建议写md时，在最后自己附上日期，我没写日期的功能  
 都是用Python写的，结果因为html文件太多给认定成了html...
   
  
