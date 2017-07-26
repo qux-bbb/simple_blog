@@ -64,7 +64,7 @@ class LoginHandler(BaseHandler):
         if login_open == False:
             self.redirect("/")
         else:
-            self.render("../page/back/login.html")
+            self.render("../page/back/login.html", info_message = "")
     def post(self):
         if login_open == False:
             self.redirect("/")
@@ -76,8 +76,8 @@ class LoginHandler(BaseHandler):
                 self.set_secure_cookie(auth_cookie, username2, expires_days=None)
                 self.redirect(back_dir)
             else:
-                self.write("<p style='color:red;'>用户名或密码错误！</p>")
-                self.render("../page/back/login.html")
+                info_message = "<br/><br/><p style='color:red;'>用户名或密码错误！</p>"
+                self.render("../page/back/login.html", info_message = info_message)
 
 # 退出
 class LogoutHandler(BaseHandler):
@@ -95,7 +95,7 @@ class BackHandler(BaseHandler):
             # 修改简介
             if modify == "introduce":
                 introduce_content = open(root_dir + "../md/introduce/introduce.md",'r').read()
-                self.render("../page/back/introduce.html", introduce = introduce_content, back_dir = back_dir)
+                self.render("../page/back/introduce.html", introduce = introduce_content, back_dir = back_dir, info_message = "")
             # 展示文章列表
             elif modify == "articlelist":
                 # 直接读取此文件需要做些修改，不然点击会直接跳回前端显示文章内容页面
@@ -106,39 +106,38 @@ class BackHandler(BaseHandler):
         elif (self.get_argument("article_name", None)):
             article_name = self.get_argument("article_name", None)
             article_content = open(root_dir + "../md/article/" + article_name + ".md" ,'r').read()
-            self.render("../page/back/article.html", article_name = article_name, article_content = article_content, back_dir = back_dir)
+            self.render("../page/back/article.html", article_name = article_name, article_content = article_content, back_dir = back_dir, info_message = "")
 
         else:
             # 默认也转到修改introduce页面
             introduce_content = open(root_dir + "../md/introduce/introduce.md",'r').read()
-            self.render("../page/back/introduce.html", introduce = introduce_content, back_dir = back_dir)
+            self.render("../page/back/introduce.html", introduce = introduce_content, back_dir = back_dir, info_message = "")
 
     @tornado.web.authenticated
     def post(self):
+        info_message = "<br/><br/><p style='color:green;'>保存成功</p>"
         # 修改并保存简介
         if (self.get_argument("introduce", None)):
             introduce_content = self.get_argument("introduce", None)
             open(root_dir + "../md/introduce/introduce.md",'w').write(introduce_content)
-            self.write("<p style='color:green;'>保存成功</p>")
-
+            
             introduce_content = open(root_dir + "../md/introduce/introduce.md",'r').read()
-            self.render("../page/back/introduce.html", introduce = introduce_content, back_dir = back_dir)
+            self.render("../page/back/introduce.html", introduce = introduce_content, back_dir = back_dir, info_message = info_message)
         # 修改并保存单个文章内容
         elif (self.get_argument("article", None)):
             article_name = self.get_argument("article_name", None)
             article_content = self.get_argument("article", None)
             open(root_dir + "../md/article/" + article_name + ".md" ,'w').write(article_content)
-            self.write("<p style='color:green;'>保存成功</p>")
 
             article_content = open(root_dir + "../md/article/" + article_name + ".md" ,'r').read()
-            self.render("../page/back/article.html", article_name = article_name, article_content = article_content, back_dir = back_dir)
+            self.render("../page/back/article.html", article_name = article_name, article_content = article_content, back_dir = back_dir, info_message = info_message)
  
 
 # 上传
 class UploadHandler(BaseHandler):
     @tornado.web.authenticated       
     def get(self):
-        self.render("../page/back/upload.html", back_dir = back_dir)
+        self.render("../page/back/upload.html", back_dir = back_dir, info_message = "")
 
     @tornado.web.authenticated       
     def post(self):
@@ -149,10 +148,11 @@ class UploadHandler(BaseHandler):
             
             files = self.request.files["myfile"]
             file_num = 0
+            info_message = "<br/><br/>"
             for file in files:
                 only_name = file["filename"][:-3]
                 if only_name in haven_filenames:
-                    self.write("<p style='color:red;'>" + only_name + " 已存在</p>")
+                    info_message += "<p style='color:red;'>" + only_name + " 已存在</p>"
                 else:
                     # 保存文件
                     open(root_dir + "../md/article/" + file["filename"], "wb").write(file["body"])
@@ -162,8 +162,8 @@ class UploadHandler(BaseHandler):
                     open(root_dir + "../md/articlelist/articlelist.md",'ab+').write(listline)
                     file_num += 1
 
-            self.write("<p style='color:green;'>" + str(file_num) + "个文件上传成功</p>")
-        self.render("../page/back/upload.html", back_dir = back_dir)
+            info_message += "<p style='color:green;'>" + str(file_num) + "个文件上传成功</p>"
+        self.render("../page/back/upload.html", back_dir = back_dir, info_message = info_message)
 
 
 
@@ -171,6 +171,7 @@ class UploadHandler(BaseHandler):
 class DeleteHandler(BaseHandler):
     @tornado.web.authenticated       
     def get(self):
+        info_message = ""
         if (self.get_argument('article_name', None)):
             article_name = self.get_argument('article_name')
             
@@ -182,11 +183,11 @@ class DeleteHandler(BaseHandler):
             # 删除文件
             os.remove(root_dir + "../md/article/" + article_name + ".md")
 
-            self.write("<p style='color:green;'>" + article_name + " 已删除</p>")
+            info_message += "<br/><br/><p style='color:green;'>" + article_name + " 已删除</p>"
 
         articlelist_content = open(root_dir + "../md/articlelist/articlelist.md",'r').read().replace("./article", "./delete")
         articlelist_content = markdown(articlelist_content)
-        self.render("../page/back/delete.html", articlelist = articlelist_content, back_dir = back_dir)
+        self.render("../page/back/delete.html", articlelist = articlelist_content, back_dir = back_dir, info_message = info_message)
 
 
 
