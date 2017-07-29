@@ -1,9 +1,9 @@
 # coding:utf8
 
 # 用户名
-username = "admin"
+username = "aaadmin"
 # 密码
-password = "password"
+password = "pppassword"
 # 指定运行端口
 run_port = 8000
 

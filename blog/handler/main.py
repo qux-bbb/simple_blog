@@ -151,8 +151,11 @@ class UploadHandler(BaseHandler):
             file_num = 0
             info_message = "<br/><br/>"
             for file in files:
+
                 only_name = file["filename"][:-3]
-                if only_name in haven_filenames:
+                if file["filename"][-3:] != ".md":
+                    info_message += "<p style='color:red;'>" + only_name + " 需要以.md结尾</p>"
+                elif only_name in haven_filenames:
                     info_message += "<p style='color:red;'>" + only_name + " 已存在</p>"
                 else:
                     # 保存文件
