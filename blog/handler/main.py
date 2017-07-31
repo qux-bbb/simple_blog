@@ -29,22 +29,27 @@ from tornado.options import define, options
 define("port", default=run_port, help="run on the given port", type=int)
 
 
+class BaseHandler(tornado.web.RequestHandler):
+    # 所有的错误都接管到404页面，使用腾讯404公益页面
+    def write_error(self, status_code, **kwargs):
+        self.render("../page/front/404.html")
+
 # 主页，就是简介
-class IndexHandler(tornado.web.RequestHandler):
+class IndexHandler(BaseHandler):
     def get(self):
         introduce_content = open(root_dir + "../md/introduce/introduce.md",'r').read()
         introduce_content = markdown(introduce_content)
         self.render("../page/front/introduce.html",introduce = introduce_content)
 
 # 文章列表
-class ArticleListHandler(tornado.web.RequestHandler):
+class ArticleListHandler(BaseHandler):
     def get(self):
         articlelist_content = open(root_dir + "../md/articlelist/articlelist.md",'r').read()
         articlelist_content = markdown(articlelist_content)
         self.render("../page/front/articlelist.html",articlelist = articlelist_content)
 
 # 单个文章
-class ArticleHandler(tornado.web.RequestHandler):
+class ArticleHandler(BaseHandler):
     def get(self):
         article_name = self.get_argument('article_name')
         article_content = open(root_dir + "../md/article/" + article_name + ".md" ,'r').read()
@@ -53,13 +58,13 @@ class ArticleHandler(tornado.web.RequestHandler):
 
 
 # 添加cookie，控制访问
-class BaseHandler(tornado.web.RequestHandler):
+class BackBaseHandler(BaseHandler):
     def get_current_user(self):
         return self.get_secure_cookie(auth_cookie)
 
 
 # 后台登陆
-class LoginHandler(BaseHandler):
+class LoginHandler(BackBaseHandler):
     def get(self):
         if login_open == False:
             self.redirect("/")
@@ -80,14 +85,14 @@ class LoginHandler(BaseHandler):
                 self.render("../page/back/login.html", info_message = info_message)
 
 # 退出
-class LogoutHandler(BaseHandler):
+class LogoutHandler(BackBaseHandler):
     @tornado.web.authenticated       
     def get(self):
         self.clear_cookie(auth_cookie)
         self.redirect("/")
 
 # 负责修改保存 简介，文章
-class BackHandler(BaseHandler):
+class BackHandler(BackBaseHandler):
     @tornado.web.authenticated       
     def get(self):
         if (self.get_argument("modify", None)):
@@ -134,7 +139,7 @@ class BackHandler(BaseHandler):
  
 
 # 上传
-class UploadHandler(BaseHandler):
+class UploadHandler(BackBaseHandler):
     @tornado.web.authenticated       
     def get(self):
         info_message = "<p style='color:green;'>可多选上传文件</p>"
@@ -154,9 +159,9 @@ class UploadHandler(BaseHandler):
 
                 only_name = file["filename"][:-3]
                 if file["filename"][-3:] != ".md":
-                    info_message += "<p style='color:red;'>" + only_name + " 需要以.md结尾</p>"
+                    info_message += "<p style='color:red;'>" + file["filename"] + " 需要以.md结尾</p>"
                 elif only_name in haven_filenames:
-                    info_message += "<p style='color:red;'>" + only_name + " 已存在</p>"
+                    info_message += "<p style='color:red;'>" + file["filename"] + " 已存在</p>"
                 else:
                     # 保存文件
                     open(root_dir + "../md/article/" + file["filename"], "wb").write(file["body"])
@@ -172,7 +177,7 @@ class UploadHandler(BaseHandler):
 
 
 # 删除
-class DeleteHandler(BaseHandler):
+class DeleteHandler(BackBaseHandler):
     @tornado.web.authenticated       
     def get(self):
         info_message = ""
@@ -192,10 +197,7 @@ class DeleteHandler(BaseHandler):
         articlelist_content = open(root_dir + "../md/articlelist/articlelist.md",'r').read().replace("./article", "./delete")
         articlelist_content = markdown(articlelist_content)
         self.render("../page/back/delete.html", articlelist = articlelist_content, back_dir = back_dir, info_message = info_message)
-
-
-
-
+        
 
 
 
@@ -219,7 +221,8 @@ if __name__ == "__main__":
                   (back_dir + "/logout", LogoutHandler),  
                   (back_dir + "/upload", UploadHandler),
                   (back_dir + "/delete", DeleteHandler),
-                  ("/favicon.ico", tornado.web.StaticFileHandler,dict(url='favicon.ico',permanent=False))
+                  ("/favicon.ico", tornado.web.StaticFileHandler,dict(url='favicon.ico',permanent=False)),
+                  (r".*", BaseHandler)
 
                  ], **settings)
     http_server = tornado.httpserver.HTTPServer(app)
