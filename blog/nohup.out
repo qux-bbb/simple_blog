@@ -1,1 +1,0 @@
-python: ../sysdeps/posix/getaddrinfo.c:2603: getaddrinfo: Assertion `IN6_IS_ADDR_V4MAPPED (sin6->sin6_addr.s6_addr32)' failed.
