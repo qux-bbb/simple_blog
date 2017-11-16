@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="{{static_url('css/bootstrap.min.css')}}">
+    <link rel="stylesheet" href="{{static_url('css/top.css')}}"> 
+    {% block title %} {% end %}
+
+</head>
+
+<body>
+    <div class="container top">
+        {% block mainbody %} {% end %}
+    </div>
+
+    <script src="{{static_url('js/jquery-3.2.1.min.js')}}"></script>
+    <script src="{{static_url('js/bootstrap.min.js')}}"></script>
+    <!-- 简单的js特效 -->
+    <script type="text/javascript" color="255,0,0" opacity='0.1' zIndex="-1" count="50" src="//cdn.bootcss.com/canvas-nest.js/1.0.1/canvas-nest.min.js"></script>
+</body>
+
+</html>
