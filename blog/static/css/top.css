@@ -8,11 +8,11 @@
 }
 
 
-.sub-a p a{
+.sub-a a{
 	text-decoration: none;
 	outline: none;
 }
 
-.sub-a p a:hover{
+.sub-a a:hover{
 	font-size: 16px;
 }

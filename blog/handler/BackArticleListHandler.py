@@ -5,6 +5,8 @@ import sys
 reload(sys)
 sys.setdefaultencoding('utf8')
 
+import os
+
 import tornado.web
 from markdown import markdown
 from BackBaseHandler import BackBaseHandler
@@ -18,8 +20,8 @@ class BackArticleListHandler(BackBaseHandler):
     '''
     @tornado.web.authenticated
     def get(self):
-        # 直接读取此文件需要做些修改，不然点击会直接跳回前端显示文章内容页面
-        articlelist_content = open(home_dir + "md/articlelist/articlelist.md", 'r').read().replace \
-            ("(/article?article_name=", "(" + back_dir + "/article?article_name=")
-        articlelist_content = markdown(articlelist_content)
-        self.render("../page/back/articlelist.html", articlelist=articlelist_content, back_dir=back_dir)
+        filelist = os.listdir(unicode(home_dir + 'md/article', 'utf-8'))
+        articlelist = ''
+        for file in filelist:
+            articlelist += '<a href="{1}/article?article_name={0}">{0}</a><br>'.format(file[:-3], back_dir)
+        self.render("../page/back/articlelist.html", articlelist=articlelist, back_dir=back_dir)

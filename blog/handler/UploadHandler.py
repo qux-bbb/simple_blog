@@ -1,5 +1,6 @@
 # coding:utf8
 
+import os
 import re
 import tornado.web
 from BackBaseHandler import BackBaseHandler
@@ -20,25 +21,18 @@ class UploadHandler(BackBaseHandler):
     def post(self):
         info_message = "<br/><br/>"
         if self.request.files:
-            articlelist_content = open(home_dir + "md/articlelist/articlelist.md" ,'r').read()
-            haven_filenames = re.findall(r"\[(.*)]", articlelist_content)
+            haven_files = os.listdir(unicode(home_dir + 'md/article', 'utf-8'))
 
             files = self.request.files["myfile"]
             file_num = 0
             for file in files:
-
-                only_name = file["filename"][:-3]
                 if file["filename"][-3:] != ".md":
                     info_message += "<p style='color:red;'>" + file["filename"] + " 需要以.md结尾</p>"
-                elif only_name in haven_filenames:
+                elif file in haven_files:
                     info_message += "<p style='color:red;'>" + file["filename"] + " 已存在</p>"
                 else:
                     # 保存文件
                     open(home_dir + "md/article/" + file["filename"], "wb").write(file["body"])
-                    # 保存文件名
-                    only_name = file["filename"][:-3]
-                    listline = "[" + only_name + "](/article?article_name=" + only_name + ")  \n"
-                    open(home_dir + "md/articlelist/articlelist.md" ,'ab+').write(listline)
                     file_num += 1
 
             info_message += "<p style='color:green;'>" + str(file_num) + "个文件上传成功</p>"

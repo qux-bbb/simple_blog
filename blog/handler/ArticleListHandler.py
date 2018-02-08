@@ -1,11 +1,7 @@
 # coding:utf8
 
-# 为了解决markdown编码错误问题
-import sys
-reload(sys)
-sys.setdefaultencoding('utf8')
+import os
 
-from markdown import markdown
 from handler.BaseHandler import BaseHandler, home_dir
 
 class ArticleListHandler(BaseHandler):
@@ -13,6 +9,8 @@ class ArticleListHandler(BaseHandler):
     文章列表
     '''
     def get(self):
-        articlelist_content = open(home_dir + "md/articlelist/articlelist.md",'r').read()
-        articlelist_content = markdown(articlelist_content)
-        self.render("../page/front/articlelist.html",articlelist = articlelist_content)
+        filelist = os.listdir(unicode(home_dir + 'md/article', 'utf-8'))
+        articlelist = ''
+        for file in filelist:
+            articlelist += '<a href="/article?article_name={0}">{0}</a><br>'.format(file[:-3])
+        self.render("../page/front/articlelist.html",articlelist = articlelist)
