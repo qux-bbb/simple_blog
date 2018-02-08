@@ -1,6 +1,6 @@
 # coding:utf8
 
-from handler.BaseHandler import home_dir
+from conf.conf import home_dir
 
 from hashlib import sha256
 import random

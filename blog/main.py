@@ -5,7 +5,7 @@ import tornado.web
 import tornado.ioloop
 import tornado.httpserver
 
-from handler.BaseHandler import BaseHandler, home_dir
+from handler.BaseHandler import BaseHandler
 from handler.IntroduceHandler import IntroduceHandler
 from handler.ArticleListHandler import ArticleListHandler
 from handler.ArticleHandler import ArticleHandler
@@ -22,12 +22,13 @@ from handler.ChangePassHandler import ChangePassHandler
 from handler.CodeRainHandler import CodeRainHandler
 from handler.Fspider import FspiderHandler
 
-from conf.conf import run_port, cookie_secret, debug_open, back_dir, login_dir
+from conf.conf import run_port, cookie_secret, debug_open, home_dir, back_dir, login_dir, log_position
 
-from tornado.options import define, options
-define("port", default=run_port, help="run on the given port", type=int)
 
 if __name__ == "__main__":
+    tornado.options.define("port", default=run_port, help="run on the given port", type=int)
+    # 默认log保存位置
+    tornado.options.options.log_file_prefix = log_position
     tornado.options.parse_command_line()
     settings = {
     "cookie_secret": cookie_secret,
@@ -58,5 +59,5 @@ if __name__ == "__main__":
 
                  ], **settings)
     http_server = tornado.httpserver.HTTPServer(app)
-    http_server.listen(options.port)
+    http_server.listen(tornado.options.options.port)
     tornado.ioloop.IOLoop.instance().start()

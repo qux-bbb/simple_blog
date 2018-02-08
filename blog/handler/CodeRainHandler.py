@@ -2,6 +2,7 @@
 
 from handler.BaseHandler import BaseHandler
 
+
 class CodeRainHandler(BaseHandler):
     '''
     CodeRain egg

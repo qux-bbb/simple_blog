@@ -4,6 +4,7 @@ import tornado.web
 from BackBaseHandler import BackBaseHandler
 from conf.conf import auth_cookie
 
+
 class LogoutHandler(BackBaseHandler):
     '''
     退出登录

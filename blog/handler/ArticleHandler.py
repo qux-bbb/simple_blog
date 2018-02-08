@@ -7,7 +7,9 @@ reload(sys)
 sys.setdefaultencoding('utf8')
 
 from markdown import markdown
-from handler.BaseHandler import BaseHandler, home_dir
+from handler.BaseHandler import BaseHandler
+from conf.conf import home_dir
+
 
 class ArticleHandler(BaseHandler):
     '''

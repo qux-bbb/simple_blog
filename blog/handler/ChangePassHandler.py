@@ -2,9 +2,9 @@
 
 import tornado.web
 from BackBaseHandler import BackBaseHandler
-from BaseHandler import home_dir
-from conf.conf import auth_cookie, salt, username, login_dir, back_dir
+from conf.conf import auth_cookie, salt, username, home_dir, login_dir, back_dir
 from hashlib import sha256
+
 
 class ChangePassHandler(BackBaseHandler):
     '''

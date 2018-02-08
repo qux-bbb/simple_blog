@@ -3,6 +3,7 @@
 from handler.BaseHandler import BaseHandler
 import random
 
+
 class FspiderHandler(BaseHandler):
     '''
     Fspider egg

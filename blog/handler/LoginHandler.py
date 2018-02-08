@@ -1,12 +1,14 @@
 # coding:utf8
 
 from BackBaseHandler import BackBaseHandler
-from conf.conf import login_open, salt, username, auth_cookie, back_dir
-from BaseHandler import home_dir
+from conf.conf import login_open, salt, username, auth_cookie, home_dir, back_dir
 from hashlib import sha256
 
-# 后台登陆
+
 class LoginHandler(BackBaseHandler):
+    '''
+    后台登陆
+    '''
     def get(self):
         if login_open == False:
             self.redirect("/")

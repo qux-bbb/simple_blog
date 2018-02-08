@@ -7,10 +7,9 @@ sys.setdefaultencoding('utf8')
 
 import os
 import tornado.web
-from markdown import markdown
 from BackBaseHandler import BackBaseHandler
-from BaseHandler import home_dir
-from conf.conf import back_dir
+from conf.conf import home_dir, back_dir
+
 
 class DeleteHandler(BackBaseHandler):
     '''

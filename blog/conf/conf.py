@@ -20,6 +20,13 @@ login_dir = "/xJSPw0tZ"
 
 
 # 不容易或者不需要自己修改的参数
+# 主目录，在读取文件，资源文件时用
+import os
+home_dir = os.path.dirname(__file__) + "/../"
+
+# 保存log的路径
+log_position = home_dir + "log"
+
 # 后台目录，名字自己随便改个不容易猜到的,别忘了写斜杠    这个名字完全可以随机生成一个复杂度较高的，不需要自己记
 back_dir = "/lpEs9FmT8oSWOGgy"
 
