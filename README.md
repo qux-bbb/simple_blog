@@ -13,10 +13,10 @@ python2.7
 `pip install -r requirements.txt`  
 
 ## 启动  
-只有一个main.py文件， 用python运行即可  
-`python  simple_blog/blog/handler/main.py`  
+用 python 运行 main.py 即可  
+`python  simple_blog/blog/main.py`  
 也可后台运行：
-`nohup python  simple_blog/blog/handler/main.py &`   
+`nohup python  simple_blog/blog/main.py &`   
 运行后在相应端口访问即可，如在本地8000端口，访问 `http://127.0.0.1:8000`即可  
 
 一些配置在conf/conf.py中有详细解释  
@@ -26,7 +26,6 @@ python2.7
 
 ## TODO
 1. 尝试hack检测:记录非法访问ip
-1. 日志输出到文件
 
   
  

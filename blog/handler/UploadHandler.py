@@ -19,7 +19,7 @@ class UploadHandler(BackBaseHandler):
     def post(self):
         info_message = "<br/><br/>"
         if self.request.files:
-            haven_files = os.listdir(unicode(home_dir + 'md/article', 'utf-8'))
+            haven_files = os.listdir(unicode(home_dir + "md/article", "utf-8"))
 
             files = self.request.files["myfile"]
             file_num = 0

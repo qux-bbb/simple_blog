@@ -3,7 +3,7 @@
 # 为了解决markdown编码错误问题
 import sys
 reload(sys)
-sys.setdefaultencoding('utf8')
+sys.setdefaultencoding("utf8")
 
 import os
 
@@ -18,8 +18,8 @@ class BackArticleListHandler(BackBaseHandler):
     '''
     @tornado.web.authenticated
     def get(self):
-        filelist = os.listdir(unicode(home_dir + 'md/article', 'utf-8'))
+        filelist = os.listdir(unicode(home_dir + "md/article", "utf-8"))
         articlelist = ''
         for file in filelist:
-            articlelist += '<a href="{1}/article?article_name={0}">{0}</a><br>'.format(file[:-3], back_dir)
+            articlelist += "<a href='{1}/article?article_name={0}'>{0}</a><br>".format(file[:-3], back_dir)
         self.render("../page/back/articlelist.html", articlelist=articlelist, back_dir=back_dir)
