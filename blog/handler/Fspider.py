@@ -5,6 +5,7 @@ import random
 
 class FspiderHandler(BaseHandler):
     '''
+    Fspider egg
     Track in Spider, just two numbers
     '''
     def get(self):

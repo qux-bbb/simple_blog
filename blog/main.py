@@ -5,26 +5,27 @@ import tornado.web
 import tornado.ioloop
 import tornado.httpserver
 
-from handler.BaseHandler import BaseHandler
-from handler.IndexHandler import IndexHandler
+from handler.BaseHandler import BaseHandler, home_dir
+from handler.IntroduceHandler import IntroduceHandler
 from handler.ArticleListHandler import ArticleListHandler
 from handler.ArticleHandler import ArticleHandler
 
-from handler.BackIndexHandler import BackIndexHandler
+from handler.BackIntroduceHandler import BackIntroduceHandler
 from handler.LoginHandler import LoginHandler
 from handler.LogoutHandler import LogoutHandler
+from handler.BackArticleListHandler import BackArticleListHandler
+from handler.BackArticleHandler import BackArticleHandler
 from handler.UploadHandler import UploadHandler
 from handler.DeleteHandler import DeleteHandler
+from handler.ChangePassHandler import ChangePassHandler
 
 from handler.CodeRainHandler import CodeRainHandler
 from handler.Fspider import FspiderHandler
 
 from conf.conf import run_port, cookie_secret, debug_open, back_dir, login_dir
 
-
 from tornado.options import define, options
 define("port", default=run_port, help="run on the given port", type=int)
-
 
 if __name__ == "__main__":
     tornado.options.parse_command_line()
@@ -32,19 +33,22 @@ if __name__ == "__main__":
     "cookie_secret": cookie_secret,
     "xsrf_cookies": True,
     "login_url": "/",  # 别定位到登陆，定位到登陆就算是漏洞了,因为我们要隐藏登陆入口
-    "static_path": "./static",
+    "static_path": home_dir + "static",
     "debug":debug_open
     }
     app = tornado.web.Application(
-        handlers=[("/", IndexHandler),
+        handlers=[("/", IntroduceHandler),
                   ("/articlelist",ArticleListHandler),
                   ("/article",ArticleHandler),
-                  (back_dir, BackIndexHandler),
                   (login_dir, LoginHandler),
-                  # 这三个路由都属于后台部分，应该隐藏在back_dir后
-                  (back_dir + "/logout", LogoutHandler),  
+                  (back_dir, BackIntroduceHandler),
+                  # 后台部分的路由，应该隐藏在back_dir后
+                  (back_dir + "/articlelist", BackArticleListHandler),
+                  (back_dir + "/article", BackArticleHandler),
                   (back_dir + "/upload", UploadHandler),
                   (back_dir + "/delete", DeleteHandler),
+                  (back_dir + "/changepass",ChangePassHandler),
+                  (back_dir + "/logout", LogoutHandler),
                   ("/favicon.ico", tornado.web.StaticFileHandler,dict(url='favicon.ico',permanent=False)),
                   # 代码雨
                   ("/comein", CodeRainHandler),

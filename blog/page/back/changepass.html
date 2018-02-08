@@ -1,43 +1,47 @@
-{% extends "../page/base.html" %} 
+{% extends "../page/base.html" %}
 
 {% block title %}
-	<title>文章上传</title>
-{% end %} 
+	<title>密码修改</title>
+{% end %}
 
-{% block mainbody %} 
+{% block mainbody %}
 	<div class="row">
 		<div class="col-xs-10 col-sm-8 col-md-8 col-lg-8 col-xs-push-1 col-sm-push-2 col-md-push-2 col-lg-push-2">
 			<ul class="nav nav-tabs">
 				<li role="presentation">
 					<a class="btn-warning" href="{{back_dir}}/logout">退出</a>
 				</li>
-	
+
 				<li role="presentation">
 					<a href="{{back_dir}}">简介修改</a>
 				</li>
-				<li role="presentation">
+				<li role="presentation" class="active">
 					<a href="{{back_dir}}/changepass">密码修改</a>
 				</li>
 				<li role="presentation">
 					<a href="{{back_dir}}/articlelist">文章管理</a>
 				</li>
-				<li role="presentation" class="active">
-					<a>文章上传</a>
-				</li>
 			</ul>
 		</div>
 	</div>
-	
+
+    <br>
+    <br>
+
 	<div class="row">
-		<div class="col-xs-10 col-sm-8 col-md-8 col-lg-8 col-xs-push-1 col-sm-push-2 col-md-push-2 col-lg-push-2">
-			<form action="{{back_dir}}/upload" enctype="multipart/form-data" method="post">
+		<div class="col-xs-10 col-sm-6 col-md-4 col-lg-4 col-xs-push-1 col-sm-push-3 col-md-push-4 col-lg-push-4">
+			<form action="" method="post">
 				{% raw xsrf_form_html() %}
-				<!--可多选上传文件-->
+
 				<div class="form-group">
-					<input type="file" name="myfile" accept=".md" multiple>
+					<input class="form-control" type="text" name="oldpass" id="oldpass" placeholder="oldpass">
 				</div>
-	
-				<input class="btn btn-primary" type="submit" value="上传">{% raw info_message %}
+
+				<div class="form-group">
+					<input class="form-control" type="text" name="newpass" id="newpass" placeholder="newpass">
+				</div>
+
+				<input class="btn btn-default" type="submit" value="确定"> {% raw info_message %}
 			</form>
 		</div>
 	</div>

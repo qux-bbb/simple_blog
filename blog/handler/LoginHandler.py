@@ -1,7 +1,9 @@
 # coding:utf8
 
 from BackBaseHandler import BackBaseHandler
-from conf.conf import login_open, username, password, auth_cookie, back_dir
+from conf.conf import login_open, salt, username, auth_cookie, back_dir
+from BaseHandler import home_dir
+from hashlib import sha256
 
 # 后台登陆
 class LoginHandler(BackBaseHandler):
@@ -17,7 +19,11 @@ class LoginHandler(BackBaseHandler):
             username2 = self.get_argument('username', 'Default_Name')
             password2 = self.get_argument('password', 'Default_Pass')
 
-            if username2 == username and password2 == password:
+            enc_password = open(home_dir + 'conf/enc_password', 'r').read()
+
+            enc_password2 = sha256(salt + username2 + password2).hexdigest()
+
+            if username2 == username and enc_password2 == enc_password:
                 self.set_secure_cookie(auth_cookie, username2, expires_days=None)
                 self.redirect(back_dir)
             else:

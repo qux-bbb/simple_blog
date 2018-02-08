@@ -7,7 +7,7 @@ reload(sys)
 sys.setdefaultencoding('utf8')
 
 from markdown import markdown
-from handler.BaseHandler import BaseHandler
+from handler.BaseHandler import BaseHandler, home_dir
 
 class ArticleHandler(BaseHandler):
     '''
@@ -15,6 +15,6 @@ class ArticleHandler(BaseHandler):
     '''
     def get(self):
         article_name = self.get_argument('article_name')
-        article_content = open("md/article/" + article_name + ".md" ,'r').read()
+        article_content = open(home_dir + "md/article/" + article_name + ".md" ,'r').read()
         article_content = markdown(article_content)
         self.render("../page/front/article.html",article_name = article_name, article_content = article_content)

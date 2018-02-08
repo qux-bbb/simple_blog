@@ -3,7 +3,9 @@
 import re
 import tornado.web
 from BackBaseHandler import BackBaseHandler
+from BaseHandler import home_dir
 from conf.conf import back_dir
+
 
 class UploadHandler(BackBaseHandler):
     '''
@@ -12,18 +14,17 @@ class UploadHandler(BackBaseHandler):
     @tornado.web.authenticated
     def get(self):
         info_message = "<p style='color:green;'>可多选上传文件</p>"
-        self.render("../page/back/upload.html", back_dir = back_dir, info_message = "")
+        self.render("../page/back/upload.html", back_dir=back_dir, info_message=info_message)
 
     @tornado.web.authenticated
     def post(self):
+        info_message = "<br/><br/>"
         if self.request.files:
-
-            articlelist_content = open("md/articlelist/articlelist.md" ,'r').read()
+            articlelist_content = open(home_dir + "md/articlelist/articlelist.md" ,'r').read()
             haven_filenames = re.findall(r"\[(.*)]", articlelist_content)
 
             files = self.request.files["myfile"]
             file_num = 0
-            info_message = "<br/><br/>"
             for file in files:
 
                 only_name = file["filename"][:-3]
@@ -33,11 +34,11 @@ class UploadHandler(BackBaseHandler):
                     info_message += "<p style='color:red;'>" + file["filename"] + " 已存在</p>"
                 else:
                     # 保存文件
-                    open("md/article/" + file["filename"], "wb").write(file["body"])
+                    open(home_dir + "md/article/" + file["filename"], "wb").write(file["body"])
                     # 保存文件名
                     only_name = file["filename"][:-3]
-                    listline = "[" + only_name + "](./article?article_name=" + only_name + ")  \n"
-                    open("md/articlelist/articlelist.md" ,'ab+').write(listline)
+                    listline = "[" + only_name + "](/article?article_name=" + only_name + ")  \n"
+                    open(home_dir + "md/articlelist/articlelist.md" ,'ab+').write(listline)
                     file_num += 1
 
             info_message += "<p style='color:green;'>" + str(file_num) + "个文件上传成功</p>"

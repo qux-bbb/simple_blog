@@ -1,7 +1,7 @@
 {% extends "../page/base.html" %} 
 
 {% block title %}
-	<title>删除文章</title>
+	<title>文章删除</title>
 {% end %} 
 
 {% block mainbody %} 
@@ -13,13 +13,13 @@
 				</li>
 	
 				<li role="presentation">
-					<a href="{{back_dir}}?modify=introduce">简介修改</a>
+					<a href="{{back_dir}}">简介修改</a>
 				</li>
 				<li role="presentation">
-					<a href="{{back_dir}}?modify=articlelist">文章管理</a>
+					<a href="{{back_dir}}/articlelist">文章管理</a>
 				</li>
 				<li role="presentation" class="active">
-					<a>删除文章</a>
+					<a>文章删除</a>
 				</li>
 			</ul>
 		</div>
@@ -32,7 +32,6 @@
 	</div>
 	<div class="row list-top">
 		<div class="col-xs-10 col-sm-6 col-md-6 col-lg-6 col-xs-push-1 col-sm-push-3 col-md-push-3 col-lg-push-3 sub-a">
-			<!-- 虽然看起来跟articlelist一样，但是后台传的数据是不一样的，有细微差别 -->
 			{% raw articlelist %} {% raw info_message %}
 		</div>
 	</div>

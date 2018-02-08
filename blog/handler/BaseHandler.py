@@ -1,7 +1,12 @@
 # coding:utf8
 
 import tornado.web
+import random
+import re
 
+# 主目录，在读取文件，资源文件时用
+import os
+home_dir = os.path.dirname(__file__) + "/../"
 
 class BaseHandler(tornado.web.RequestHandler):
     '''
