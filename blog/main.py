@@ -23,6 +23,7 @@ from handler.CodeRainHandler import CodeRainHandler
 from handler.Fspider import FspiderHandler
 
 from conf.conf import run_port, cookie_secret, debug_open, home_dir, back_dir, login_dir, log_position
+import tornado.log
 
 
 if __name__ == "__main__":
