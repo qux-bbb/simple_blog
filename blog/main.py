@@ -9,6 +9,7 @@ from handler.BaseHandler import BaseHandler
 from handler.IntroduceHandler import IntroduceHandler
 from handler.ArticleListHandler import ArticleListHandler
 from handler.ArticleHandler import ArticleHandler
+from handler.FakeLoginHandler import FakeLoginHandler
 
 from handler.BackIntroduceHandler import BackIntroduceHandler
 from handler.LoginHandler import LoginHandler
@@ -34,7 +35,7 @@ if __name__ == "__main__":
     settings = {
     "cookie_secret": cookie_secret,
     "xsrf_cookies": True,
-    "login_url": "/",  # 别定位到登陆，定位到登陆就算是漏洞了,因为我们要隐藏登陆入口
+        "login_url": "/login",  # 要隐藏登陆入口，可以定位到假的登录界面
     "static_path": home_dir + "static",
     "debug":debug_open
     }
@@ -42,6 +43,8 @@ if __name__ == "__main__":
         handlers=[("/", IntroduceHandler),
                   ("/articlelist",ArticleListHandler),
                   ("/article",ArticleHandler),
+                  ("/login", FakeLoginHandler),
+                  ("/admin", FakeLoginHandler),
                   (login_dir, LoginHandler),
                   (back_dir, BackIntroduceHandler),
                   # 后台部分的路由，应该隐藏在back_dir后

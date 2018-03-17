@@ -67,3 +67,4 @@ conf_file.close()
 open(home_dir + "conf/enc_password", 'w').write(enc_password)
 
 print "[+] Setup success, you can see them in conf/conf.py"
+print "[+] About two keys of coinhive, you can also setup them in conf/conf.py by yourself"
