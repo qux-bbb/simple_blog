@@ -10,6 +10,7 @@ from handler.IntroduceHandler import IntroduceHandler
 from handler.ArticleListHandler import ArticleListHandler
 from handler.ArticleHandler import ArticleHandler
 from handler.FakeLoginHandler import FakeLoginHandler
+from handler.GoRobotsTxtHandler import GoRobotsTxtHandler
 
 from handler.BackIntroduceHandler import BackIntroduceHandler
 from handler.LoginHandler import LoginHandler
@@ -55,6 +56,8 @@ if __name__ == "__main__":
                   (back_dir + "/changepass",ChangePassHandler),
                   (back_dir + "/logout", LogoutHandler),
                   ("/favicon.ico", tornado.web.StaticFileHandler,dict(url='favicon.ico',permanent=False)),
+                  # 故意暴露一下
+                  ("/robots.txt", tornado.web.StaticFileHandler,dict(url='robots.txt',permanent=False)),
                   # 代码雨
                   ("/comein", CodeRainHandler),
                   # Fspider

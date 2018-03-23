@@ -20,7 +20,7 @@ login_dir = "/ne7wJZlz"
 
 # 关于coinhive验证码和CPU打击的2个值
 site_key = "1"
-secret_key = "1"
+secret_key = "2"
 
 
 # 不容易或者不需要自己修改的参数

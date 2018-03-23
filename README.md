@@ -14,17 +14,14 @@
 python2.7  
 `pip install -r requirements.txt`  
 
-## 启动  
-用 python 运行 main.py 即可  
+## 配置&启动  
+运行 setup.py 进行参数配置，有些参数需要自己在conf/conf.py中自己更改  
+
+配置之后运行 main.py 即可  
 `python  simple_blog/blog/main.py`  
 也可后台运行：
 `nohup python  simple_blog/blog/main.py &`   
 运行后在相应端口访问即可，如在本地8000端口，访问 `http://127.0.0.1:8000`即可  
 
-一些配置在conf/conf.py中有详细解释  
-
 ## 注意
 建议写md时，在最后自己附上日期  
-
-  
- 
