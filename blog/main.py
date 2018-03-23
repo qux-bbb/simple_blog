@@ -10,7 +10,6 @@ from handler.IntroduceHandler import IntroduceHandler
 from handler.ArticleListHandler import ArticleListHandler
 from handler.ArticleHandler import ArticleHandler
 from handler.FakeLoginHandler import FakeLoginHandler
-from handler.GoRobotsTxtHandler import GoRobotsTxtHandler
 
 from handler.BackIntroduceHandler import BackIntroduceHandler
 from handler.LoginHandler import LoginHandler
