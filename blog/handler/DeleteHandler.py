@@ -22,7 +22,7 @@ class DeleteHandler(BackBaseHandler):
             article_name = self.get_argument("article_name")
 
             # 删除文件
-            os.remove("md/article/" + article_name + ".md")
+            os.remove(home_dir + "md/article/" + article_name + ".md")
             info_message += "<br/><br/><p style='color:green;'>" + article_name + " 已删除</p>"
 
         filelist = os.listdir(unicode(home_dir + "md/article", "utf-8"))

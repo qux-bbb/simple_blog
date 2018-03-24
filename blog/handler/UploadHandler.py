@@ -26,7 +26,7 @@ class UploadHandler(BackBaseHandler):
             for file in files:
                 if file["filename"][-3:] != ".md":
                     info_message += "<p style='color:red;'>" + file["filename"] + " 需要以.md结尾</p>"
-                elif file in haven_files:
+                elif file["filename"] in haven_files:
                     info_message += "<p style='color:red;'>" + file["filename"] + " 已存在</p>"
                 else:
                     # 保存文件

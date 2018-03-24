@@ -41,6 +41,16 @@ else:
             print "[-] Default login_dir is: " + login_dir
             break
 
+site_key = raw_input("Setup coinhive site_key: ").strip()
+if not site_key:
+    site_key = '1'
+    print "[-] Default site_key is: " + site_key
+
+secret_key = raw_input("Setup coinhive secret_key: ").strip()
+if not secret_key:
+    secret_key = '2'
+    print "[-] Default secret_key is: " + secret_key
+
 salt = ''.join(random.sample(common_char, 16))
 enc_password = sha256(salt + username + password).hexdigest()
 back_dir = '/' + ''.join(random.sample(common_char, 16))
@@ -58,6 +68,9 @@ new_conf_content = re.sub('login_dir = ".*"', 'login_dir = "' + login_dir + '"',
 new_conf_content = re.sub('back_dir = ".*"', 'back_dir = "' + back_dir + '"', new_conf_content)
 new_conf_content = re.sub('auth_cookie = ".*"', 'auth_cookie = "' + auth_cookie + '"', new_conf_content)
 new_conf_content = re.sub('cookie_secret = ".*"', 'cookie_secret = "' + cookie_secret + '"', new_conf_content)
+new_conf_content = re.sub('site_key = ".*"', 'site_key = "' + site_key + '"', new_conf_content)
+new_conf_content = re.sub('secret_key = ".*"', 'secret_key = "' + secret_key + '"', new_conf_content)
+
 
 conf_file = open(home_dir + "conf/conf.py", 'w')
 conf_file.write(new_conf_content)
