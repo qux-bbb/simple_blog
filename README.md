@@ -15,7 +15,7 @@ python2.7
 `pip install -r requirements.txt`  
 
 ## 配置&启动  
-运行 setup.py 进行参数配置，有些参数需要自己在conf/conf.py中自己更改  
+运行 setup.py 进行参数配置，有些参数可以自己在conf/conf.py中更改  
 
 配置之后运行 main.py 即可  
 `python  simple_blog/blog/main.py`  
@@ -25,3 +25,5 @@ python2.7
 
 ## 注意
 建议写md时，在最后自己附上日期  
+log文件默认位置为 `simple_blog/blog/log`  
+debug模式默认关闭  
