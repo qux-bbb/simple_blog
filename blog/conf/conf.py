@@ -14,7 +14,6 @@ login_open = True
 # 是否开启调试模式
 debug_open = False
 # 登陆目录, 名字自己随便改个不容易猜到的,别忘了写斜杠
-# 不要用/login /admin 这两个用来做假的登录页面
 # 这个名字需要自己记住，是后台入口
 login_dir = "/msHK5Lct"
 
