@@ -9,7 +9,6 @@ from handler.BaseHandler import BaseHandler
 from handler.IntroduceHandler import IntroduceHandler
 from handler.ArticleListHandler import ArticleListHandler
 from handler.ArticleHandler import ArticleHandler
-from handler.FakeLoginHandler import FakeLoginHandler
 
 from handler.BackIntroduceHandler import BackIntroduceHandler
 from handler.LoginHandler import LoginHandler
@@ -43,8 +42,6 @@ if __name__ == "__main__":
         handlers=[("/", IntroduceHandler),
                   ("/articlelist",ArticleListHandler),
                   ("/article",ArticleHandler),
-                  ("/login", FakeLoginHandler),
-                  ("/admin", FakeLoginHandler),
                   (login_dir, LoginHandler),
                   (back_dir, BackIntroduceHandler),
                   # 后台部分的路由，应该隐藏在back_dir后
@@ -55,8 +52,6 @@ if __name__ == "__main__":
                   (back_dir + "/changepass",ChangePassHandler),
                   (back_dir + "/logout", LogoutHandler),
                   ("/favicon.ico", tornado.web.StaticFileHandler,dict(url='favicon.ico',permanent=False)),
-                  # 故意暴露一下
-                  ("/robots.txt", tornado.web.StaticFileHandler,dict(url='robots.txt',permanent=False)),
                   # 代码雨
                   ("/comein", CodeRainHandler),
                   # Fspider

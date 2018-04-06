@@ -18,10 +18,6 @@ debug_open = False
 # 这个名字需要自己记住，是后台入口
 login_dir = "/msHK5Lct"
 
-# 关于coinhive验证码和CPU打击的2个值
-site_key = "1"
-secret_key = "2"
-
 
 # 不容易或者不需要自己修改的参数
 # 主目录，在读取文件，资源文件时用
@@ -31,7 +27,7 @@ home_dir = os.path.dirname(__file__) + "/../"
 # 保存log的路径
 log_position = home_dir + "log"
 
-# 后台目录，名字自己随便改个不容易猜到的,别忘了写斜杠    这个名字完全可以随机生成一个复杂度较高的，不需要自己记
+# 后台目录，由脚本随机生成，不需要自己记
 back_dir = "/dBcqCMbK3eAmF6Es"
 
 # 用于认证的cookie名字，和username有关
