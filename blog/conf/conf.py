@@ -21,7 +21,7 @@ login_dir = "/msHK5Lct"
 # 不容易或者不需要自己修改的参数
 # 主目录，在读取文件，资源文件时用
 import os
-home_dir = os.path.dirname(__file__) + "/../"
+home_dir = os.path.dirname(os.path.abspath(__file__)) + "/../"
 
 # 保存log的路径
 log_position = home_dir + "log"
